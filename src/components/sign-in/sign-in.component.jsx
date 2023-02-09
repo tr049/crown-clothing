@@ -37,6 +37,7 @@ const SignIn = () => {
         try {
             const signInResult = await signInUsingEmailAndPassword(email, password);
             console.log(signInResult);
+
             // Resetting form
             resetFormFields();
         }
