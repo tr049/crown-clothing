@@ -1,6 +1,6 @@
 import './sign-in.styles.scss';
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, {BUTTON_TYPE_CLASSES} from "../button/button.component";
 import {useState} from "react";
 import {
     createUserDocumentFromAuth,
@@ -86,7 +86,7 @@ const SignIn = () => {
                     required/>
                 <div className='buttons-container'>
                     <Button type="submit">Sign In</Button>
-                    <Button onClick={signInWithGoogle} buttonType="google">Google Sign In</Button>
+                    <Button onClick={signInWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google}>Google Sign In</Button>
                 </div>
             </form>
         </div>
