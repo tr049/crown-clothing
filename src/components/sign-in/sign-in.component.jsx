@@ -59,7 +59,7 @@ const SignIn = () => {
 
     const signInWithGoogle = async () => {
         const {user} = await signInWithGooglePopup();
-        debugger
+
         const userDocRef = await createUserDocumentFromAuth(user);
     };
 
