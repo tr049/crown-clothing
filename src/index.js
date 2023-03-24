@@ -4,7 +4,8 @@ import './index.scss';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import {Provider} from "react-redux";
-import {store} from "./store/store";
+import {persistor, store} from "./store/store";
+import {PersistGate} from "redux-persist/integration/react";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -12,15 +13,17 @@ const root = createRoot(container);
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <BrowserRouter>
-                {/*<UserProvider>*/}
+            <PersistGate loading={null} persistor={persistor}>
+                <BrowserRouter>
+                    {/*<UserProvider>*/}
                     {/*<CategoriesProvider>*/}
                     {/*    <CartProvider>*/}
-                            <App />
-                        {/*</CartProvider>*/}
+                    <App />
+                    {/*</CartProvider>*/}
                     {/*</CategoriesProvider>*/}
-                {/*</UserProvider>*/}
-            </BrowserRouter>
+                    {/*</UserProvider>*/}
+                </BrowserRouter>
+            </PersistGate>
         </Provider>
     </React.StrictMode>
 );
