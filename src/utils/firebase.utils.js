@@ -135,3 +135,19 @@ export const onAuthStateChangedListener = (callback) => {
     }
     return onAuthStateChanged(auth, callback);
 }
+
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                // To avoid memory leak
+                unsubscribe();
+
+                resolve(userAuth);
+            },
+            reject
+        )
+    })
+}

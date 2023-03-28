@@ -6,15 +6,16 @@ export const fetchCategoriesStart = () => createAction(CATEGORIES_ACTION_TYPES.F
 export const fetchCategoriesSuccess = (categories) => createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categories);
 export const fetchCategoriesFailed = (error) => createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
 
-export const fetchCategoriesAsync = () => async (dispatch) => {
-    try {
-        dispatch(fetchCategoriesStart());
-
-        const categories = await getCategoriesAndDocuments();
-
-        dispatch(fetchCategoriesSuccess(categories));
-    }
-    catch(error) {
-        dispatch(fetchCategoriesFailed(error));
-    }
-}
+// This code is for redux thunk
+// export const fetchCategoriesAsync = () => async (dispatch) => {
+//     try {
+//         dispatch(fetchCategoriesStart());
+//
+//         const categories = await getCategoriesAndDocuments();
+//
+//         dispatch(fetchCategoriesSuccess(categories));
+//     }
+//     catch(error) {
+//         dispatch(fetchCategoriesFailed(error));
+//     }
+// }
