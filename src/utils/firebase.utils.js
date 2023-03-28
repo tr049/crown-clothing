@@ -23,13 +23,13 @@ import {
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAhJ3HnbsOW7cP2pJYOnvxrLhP1tzxgDCQ",
-    authDomain: "crown-clothing-prac.firebaseapp.com",
-    projectId: "crown-clothing-prac",
-    storageBucket: "crown-clothing-prac.appspot.com",
-    messagingSenderId: "927389956306",
-    appId: "1:927389956306:web:c89c96415aa047b264d50b",
-    measurementId: "G-75KB1HGDTH"
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
 };
 
 
