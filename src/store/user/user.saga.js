@@ -2,6 +2,7 @@ import {all, takeLatest, call, put} from 'redux-saga/effects';
 import {USER_ACTION_TYPES} from "./user.types";
 import {
     createAuthUserWithEmailAndPassword,
+    createUserDocumentFromAuth,
     getCurrentUser,
     signInUsingEmailAndPassword,
     signInWithGooglePopup, signOutUser
@@ -10,8 +11,8 @@ import {signInFailed, signInSuccess, signOutFailed, signOutSuccess, signUpFailed
 
 export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
     try {
-       const userSnapshot = yield call(getCurrentUser, userAuth, additionalDetails);
-
+       const userSnapshot = yield call(createUserDocumentFromAuth, userAuth, additionalDetails);
+       
         yield put(signInSuccess({id: userSnapshot.id, ...userSnapshot.data()}));
     }
     catch (exception) {
@@ -41,7 +42,7 @@ export function* signInWithGoogle() {
     }
 }
 
-export function* emailAndPasswordSignGoogle({email, password}) {
+export function* emailAndPasswordSignIn({payload: {email, password}}) {
     try {
         const {user} = yield call(signInUsingEmailAndPassword, email, password);
         yield call(getSnapshotFromUserAuth, user);
@@ -88,7 +89,7 @@ export function* onGoogleSignInStart() {
 }
 
 export function* onEmailAndPasswordSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, emailAndPasswordSignGoogle)
+    yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, emailAndPasswordSignIn)
 }
 
 export function* onSignUpStart() {
