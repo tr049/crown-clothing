@@ -1,9 +1,11 @@
-import {useState} from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import FormInput from "../form-input/form-input.component";
-import './sign-up.styles.scss';
+import './sign-up.styles';
 import Button from "../button/button.component";
 import {useDispatch} from "react-redux";
 import {signUpStart} from "../../store/user/user.action";
+import {SignUpContainer} from "./sign-up.styles";
+import {AuthError, AuthErrorCodes} from 'firebase/auth';
 
 const defaultFormFields = {
     displayName: '',
@@ -19,12 +21,12 @@ const SignUp = () => {
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
     }
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
         setFormFields({...formFields, [name]: value});
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (!email || !password) {
             alert("Some fields are empty");
@@ -41,7 +43,7 @@ const SignUp = () => {
             resetFormFields();
         }
         catch(error) {
-            if (error.code === 'auth/email-already-in-use') {
+            if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
                 alert("Can't create user, email already registered");
             }
             console.error('Failed to create user', error);
@@ -50,7 +52,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className='sign-up-container'>
+        <SignUpContainer>
             <h2>Don't have an account?</h2>
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -86,9 +88,9 @@ const SignUp = () => {
                     type="password"
                     required/>
 
-                <Button type="Submit">Sign up</Button>
+                <Button type="submit">Sign up</Button>
             </form>
-        </div>
+        </SignUpContainer >
     )
 }
 

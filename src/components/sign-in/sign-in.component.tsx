@@ -1,9 +1,10 @@
-import './sign-in.styles.scss';
+import './sign-in.styles';
 import FormInput from "../form-input/form-input.component";
 import Button, {BUTTON_TYPE_CLASSES} from "../button/button.component";
-import {useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {useDispatch} from "react-redux";
 import {emailSignInStart, googleSignInStart} from "../../store/user/user.action";
+import {ButtonsContainer, SignInContainer} from "./sign-in.styles";
 
 
 const defaultFormFields = {
@@ -20,12 +21,12 @@ const SignIn = () => {
         setFormFields(defaultFormFields);
     }
 
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
         setFormFields({...formFields, [name]: value});
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (!email || !password) {
             alert("Some fields are empty");
@@ -39,7 +40,7 @@ const SignIn = () => {
             resetFormFields();
         }
         catch(error) {
-            switch (error.code) {
+            switch ((error as any).code) {
                 case 'auth/wrong-password':
                     alert("Invalid password");
                     break;
@@ -59,7 +60,7 @@ const SignIn = () => {
     };
 
     return (
-        <div className='sign-in-container'>
+        <SignInContainer>
             <h2>Already have an account?</h2>
             <span>Sign in with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -79,12 +80,12 @@ const SignIn = () => {
                     value={password}
                     type="password"
                     required/>
-                <div className='buttons-container'>
+                <ButtonsContainer>
                     <Button type="submit">Sign In</Button>
                     <Button onClick={signInWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google}>Google Sign In</Button>
-                </div>
+                </ButtonsContainer>
             </form>
-        </div>
+        </SignInContainer>
     );
 }
 
